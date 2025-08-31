@@ -18,7 +18,8 @@ const razorpayInstance = new razorpay({
 const placeOrder = async (req,res) => {
     try {
         
-        const {userId,items,address,amount} = req.body
+        const {items,address,amount} = req.body
+        const { userId } = req
 
         const orderData = {
             userId,
@@ -96,7 +97,8 @@ const placeOrder = async (req,res) => {
 
 //Verify Stripe
 const verifyStripe = async (req,res) => {
-    const {userId,success,orderId} = req.body
+    const {success,orderId} = req.body
+    const { userId } = req
     try {
         if(success === "true"){
             await orderModel.findByIdAndUpdate(orderId,{payment: true})
@@ -114,7 +116,8 @@ const verifyStripe = async (req,res) => {
 // Placing order using razorpay method
 const placeOrderRazorpay = async (req,res) => {
     try {
-        const {userId,items,address,amount} = req.body
+        const {items,address,amount} = req.body
+        const { userId } = req
 
         const orderData = {
             userId,
@@ -149,7 +152,8 @@ const placeOrderRazorpay = async (req,res) => {
 //verify razorpay
 const verifyRazorpay = async (req,res) => {
     try {
-        const {userId,razorpay_order_id} = req.body
+        const {razorpay_order_id} = req.body
+        const { userId } = req
         const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id)
         // console.log(orderInfo);
         if(orderInfo.status === 'paid'){
@@ -179,7 +183,7 @@ const allOrders = async (req,res) => {
 // User order data for frontend
 const userOrders = async (req,res) => {
     try {
-        const {userId} = req.body
+        const {userId} = req
         const orders = await orderModel.find({userId})
         res.json({success: true,orders})
     } catch (error) {

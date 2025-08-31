@@ -3,6 +3,7 @@ import { ShopContext } from '../context/ShopContext'
 import Title from '../components/Title'
 import { assets } from '../assets/frontend_assets/assets'
 import CartTotal from '../components/CartTotal'
+import { FaShoppingCart } from "react-icons/fa"
 
 const Cart = () => {
 
@@ -31,7 +32,7 @@ const Cart = () => {
 
   }, [cartItems, products])
 
-  return (
+  return cartData.length !== 0 ? (
     <div className='border-t pt-14'>
       <div className="text-2xl mb-3">
         <Title text1={'YOUR'} text2={'CART'} />
@@ -66,6 +67,17 @@ const Cart = () => {
           </div>
         </div>
       </div>
+    </div>
+  ):(
+    <div className="flex flex-col items-center justify-center mt-20 text-center text-gray-700">
+      <FaShoppingCart className="text-6xl text-gray-400 mb-4" />
+      <h2 className="text-2xl font-semibold mb-2">Your Cart is Empty</h2>
+      <p className="text-gray-500 max-w-sm">
+        You haven't added any items to your cart yet. Browse our products and start shopping now!
+      </p>
+      <button onClick={()=>navigate('/collection')} className="bg-black my-4 rounded-2xl cursor-pointer text-white font-light px-8 py-2">
+        Shop Now
+      </button>
     </div>
   )
 }

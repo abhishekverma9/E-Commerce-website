@@ -2,6 +2,7 @@ import React, { useContext , useState ,useEffect} from 'react'
 import { ShopContext } from '../context/ShopContext'
 import Title from '../components/Title'
 import axios from 'axios'
+import { FaBoxOpen } from "react-icons/fa";
 
 const Orders = () => {
 
@@ -38,7 +39,7 @@ const Orders = () => {
     loadOrderData()
   }, [token])
   
-  return (
+  return orderData.length !== 0 ? (
     <div className='border-t pt-16'>
       <div className="text-2xl">
         <Title text1={'MY'} text2={'ORDERS'}/>
@@ -69,6 +70,14 @@ const Orders = () => {
           </div>
         ))  
       }</div>
+    </div>
+  ):(
+    <div className="flex flex-col items-center justify-center mt-20 text-center text-gray-700">
+      <FaBoxOpen className="text-6xl text-gray-400 mb-4" />
+      <h2 className="text-2xl font-semibold mb-2">No Orders Yet!</h2>
+      <p className="text-gray-500 max-w-sm">
+        You haven't placed any orders yet. Start exploring our products and make your first purchase today!
+      </p>
     </div>
   )
 }
