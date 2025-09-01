@@ -6,6 +6,7 @@ import { ShopContext } from '../context/ShopContext'
 const Navbar = () => {
 
     const [visible, setVisible] = useState(false)
+    const [open, setOpen] = useState(false)
     const {setShowSearch,getCartCount,token,setToken,navigate,setCartItems} = useContext(ShopContext)
 
     const Logout = ()=>{
@@ -38,10 +39,10 @@ const Navbar = () => {
             <div className="flex items-center gap-6">
                 <img onClick={()=>setShowSearch(true)} src={assets.search_icon} className='w-5 cursor-pointer' alt="" />
                 <div className="group relative">
-                    <img onClick={()=> token ? null : navigate('/login')} src={assets.profile_icon} className='w-5 cursor-pointer' alt="" />
+                    <img onClick={()=> token ? setOpen(!open) : navigate('/login')} src={assets.profile_icon} className='w-5 cursor-pointer' alt="" />
                     {/* Dropdown menu */}
                     {token &&
-                    <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
+                    <div className={`group-hover:block ${open ? "block" : "hidden"}  absolute dropdown-menu right-0 pt-4`}>
                         <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
                             <p onClick={()=>navigate('/profile')} className='cursor-pointer hover:text-black'>My Profile</p>
                             <p onClick={()=>navigate('/orders')} className='cursor-pointer hover:text-black'>Orders</p>
