@@ -134,7 +134,7 @@ const googleCallback = async (req, res) => {
             await user.save();
         }
         const token = createToken(user._id)
-        res.redirect(`http://localhost:5173/success/?token=${token}`);
+        res.redirect(`${process.env.FRONTEND_URL}/success/?token=${token}`);
     } catch (err) {
         console.error(err);
         res.status(500).send("Authentication failed");
